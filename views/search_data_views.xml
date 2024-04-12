@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="search_data_action" model="ir.actions.act_window">
+        <field name="name">Search Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">search.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--    form view for search data using filter-->
+    <record id="cleaning_service_view_form" model="ir.ui.view">
+        <field name="name">search.data.view.form</field>
+        <field name="model">search.data</field>
+        <field name="arch" type="xml">
+                <form string="Data Search">
+                    <sheet>
+                        <group>
+                            <field name="model_id"
+                                   options="{'no_quick_create':True,'no_create_edit':True}"/>
+                            <field name="field_id" domain="[('model_id', '=',model_id)]"/>
+                            <field name="search_text"/>
+                            <field name="search_option"/>
+                            <button name="action_view_record" type="object"
+                                    string="Records"
+                                    class="btn-primary"
+                                    />
+                        </group>
+                        <notebook>
+                            <page string="Record Details">
+                                <field name="record_ids" widget="one2many_widget">
+                                    <tree editable="bottom" create="0">
+                                        <field name="model_id"/>
+                                        <field name="field_id"/>
+                                        <field name="record_id"/>
+                                        <button name="action_redirect_to_record"
+                                            string="View Details" type="object"
+                                                help="View record details"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids"/>
+                    </div>
+                </form>
+        </field>
+    </record>
+    <record id="cleaning_service_view_tree" model="ir.ui.view">
+        <field name="name">search.data.view.tree</field>
+        <field name="model">search.data</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="model_id"/>
+                    <field name="field_id"/>
+                </tree>
+        </field>
+    </record>
+</odoo>
